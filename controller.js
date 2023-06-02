@@ -53,7 +53,6 @@ export class EventController {
       if (name === "" || start === "" || end === "")
         return alert("Invalid input");
       this.model.addEvent(new Event(name, start, end)).then((event) => {
-        console.log(event);
         this.view.updateEvent(event, e.target);
         this.view.changeView(event.id, false);
       });

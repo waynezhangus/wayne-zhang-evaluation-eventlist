@@ -1,13 +1,66 @@
-// use Sass for BEM
+$tan: #e6e2d3;
+$trafficWhite: #f0f0f0;
+$yellowGreen: #4caf50;
+$vermillioRed: #c94c4c;
+$blue: #008cba;
 
-$todo-red: #ff0000;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-.todo {
-  border: 1px solid $todo-red;
-  &__title {
-    text-align: center;
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  &__add-btn {
+    color: white;
+    height: 3em;
+    width: 10em;
+    background-color: $blue;
+    border: none;
+    border-radius: 1em;
   }
-  &__edit-btn {
-    margin-left: 10px;
+}
+
+table {
+  margin-top: 5px;
+  padding: 20px 0;
+  border: 4px solid $tan;
+  width: 600px;
+  border-radius: 1em;
+  text-align: center;
+  border-spacing: 0 15px;
+}
+
+.event {
+  background-color: $trafficWhite;
+  padding: 20px 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid $tan;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $yellowGreen;
+    color: $trafficWhite;
+  }
+
+  &__name {
+    width: 100px;
+  }
+
+  &__start {
+    width: 100px;
+  }
+
+  &__end {
+    width: 100px;
   }
 }

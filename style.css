@@ -1,9 +1,55 @@
-.todo {
-  border: 1px solid #ff0000;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-.todo__title {
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.app__add-btn {
+  color: white;
+  height: 3em;
+  width: 10em;
+  background-color: #008cba;
+  border: none;
+  border-radius: 1em;
+}
+
+table {
+  margin-top: 5px;
+  padding: 20px 0;
+  border: 4px solid #e6e2d3;
+  width: 600px;
+  border-radius: 1em;
   text-align: center;
+  border-spacing: 0 15px;
 }
-.todo__edit-btn {
-  margin-left: 10px;
+
+.event {
+  background-color: #f0f0f0;
+  padding: 20px 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #e6e2d3;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.event:hover {
+  background-color: #4caf50;
+  color: #f0f0f0;
+}
+.event__name {
+  width: 100px;
+}
+.event__start {
+  width: 100px;
+}
+.event__end {
+  width: 100px;
 }/*# sourceMappingURL=style.css.map */
