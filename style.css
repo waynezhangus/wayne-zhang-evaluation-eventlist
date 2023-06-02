@@ -1,0 +1,9 @@
+.todo {
+  border: 1px solid #ff0000;
+}
+.todo__title {
+  text-align: center;
+}
+.todo__edit-btn {
+  margin-left: 10px;
+}/*# sourceMappingURL=style.css.map */

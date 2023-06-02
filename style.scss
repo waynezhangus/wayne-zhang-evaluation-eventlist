@@ -1,0 +1,13 @@
+// use Sass for BEM
+
+$todo-red: #ff0000;
+
+.todo {
+  border: 1px solid $todo-red;
+  &__title {
+    text-align: center;
+  }
+  &__edit-btn {
+    margin-left: 10px;
+  }
+}
