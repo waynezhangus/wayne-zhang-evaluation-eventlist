@@ -134,23 +134,23 @@ export class EventView {
     const editBtn = document.createElement("button");
     editBtn.classList.add("app__edit-btn");
     editBtn.setAttribute("data-id", event.id);
-    editBtn.textContent = "Edit";
+    // editBtn.textContent = "Edit";
 
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("app__delete-btn");
     deleteBtn.setAttribute("data-id", event.id);
-    deleteBtn.textContent = "Delete";
+    // deleteBtn.textContent = "Delete";
 
     const saveBtn = document.createElement("button");
     saveBtn.classList.add("app__save-btn");
     saveBtn.setAttribute("data-id", event.id);
-    saveBtn.textContent = "Save";
+    // saveBtn.textContent = "Save";
     saveBtn.style.display = "none";
 
     const cancelBtn = document.createElement("button");
     cancelBtn.classList.add("app__cancel-btn");
     cancelBtn.setAttribute("data-id", event.id);
-    cancelBtn.textContent = "Cancel";
+    // cancelBtn.textContent = "Cancel";
     cancelBtn.style.display = "none";
 
     const actionTd = document.createElement("td");
