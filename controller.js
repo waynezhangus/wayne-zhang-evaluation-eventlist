@@ -5,6 +5,7 @@ export class EventController {
     this.model = model;
     this.view = view;
     this.init();
+    this.isFuture = false;
   }
 
   async init() {
@@ -16,12 +17,23 @@ export class EventController {
   setUpEvents() {
     this.setUpAddEvent();
     this.setUpClickEvent();
+    this.setUpFutureEvent();
   }
 
   setUpAddEvent() {
     this.view.addBtn.addEventListener("click", () => {
+      if (document.querySelector("#event-new")) {
+        return alert("Please finish adding current event");
+      }
       this.view.addEvent(new Event());
-      this.view.changeView(undefined, true);
+      this.view.changeView("new", true);
+    });
+  }
+
+  setUpFutureEvent() {
+    this.view.futureBtn.addEventListener("click", () => {
+      this.isFuture = !this.isFuture;
+      this.futureHandler();
     });
   }
 
@@ -35,7 +47,8 @@ export class EventController {
       let id, name, start, end;
 
       if (isSaveBtn || isDeleteBtn || isEditBtn || isCancelBtn) {
-        id = e.target.dataset.id;
+        id =
+          e.target.dataset.id === "new" ? "new" : parseInt(e.target.dataset.id);
         name = document.querySelector(`.event__name[data-id="${id}"]`).value;
         start = document.querySelector(`.event__start[data-id="${id}"]`).value;
         end = document.querySelector(`.event__end[data-id="${id}"]`).value;
@@ -48,18 +61,34 @@ export class EventController {
     });
   }
 
+  futureHandler() {
+    if (this.isFuture) {
+      this.view.futureBtn.textContent = "Show all events";
+      const filteredEvents = this.model
+        .getEvents()
+        .filter((event) => new Date(event.startDate) > new Date());
+      this.view.initEvents(filteredEvents);
+    } else {
+      this.view.futureBtn.textContent = "Only show future events";
+      this.view.initEvents(this.model.getEvents());
+    }
+  }
+
   saveHandler(id, name, start, end, e) {
-    if (id === "undefined") {
-      if (name === "" || start === "" || end === "")
+    if (id === "new") {
+      if (name === "" || start === "" || end === "") {
         return alert("Invalid input");
+      }
       this.model.addEvent(new Event(name, start, end)).then((event) => {
         this.view.updateEvent(event, e.target);
         this.view.changeView(event.id, false);
+        this.futureHandler();
       });
     } else {
       this.model.editEvent(id, new Event(name, start, end)).then((event) => {
         this.view.updateEvent(event);
         this.view.changeView(event.id, false);
+        this.futureHandler();
       });
     }
   }
@@ -75,48 +104,7 @@ export class EventController {
   }
 
   cancelHandler(id, e) {
-    if (id === "undefined") this.view.removeEvent(id, e.target);
+    if (id === "new") this.view.removeEvent(id, e.target);
     else this.view.changeView(id, false);
   }
-
-  // setUpEditEvent() {
-  //   this.view.table.addEventListener("click", (e) => {
-  //     const isSaveBtn = e.target.classList.contains("app__save-btn");
-  //     if (isSaveBtn) {
-  //       const saveId = e.target.dataset.id;
-  //       const name = document.querySelector(
-  //         `.event__name[data-id="${saveId}"]`
-  //       ).value;
-  //       const start = document.querySelector(
-  //         `.event__start[data-id="${saveId}"]`
-  //       ).value;
-  //       const end = document.querySelector(
-  //         `.event__end[data-id="${saveId}"]`
-  //       ).value;
-  //       this.model.addEvent(saveId, new Event(name)).then((event) => {
-  //         this.view.changeButton(saveId, false);
-  //       });
-  //     }
-  //   });
-  // }
-
-  // setUpClickEvent() {
-  //   this.view.todoList.addEventListener("click", (e) => {
-  //     const isDeleteBtn = e.target.classList.contains("todo__delete-btn");
-  //     const isEditBtn = e.target.classList.contains("todo__edit-btn");
-  //     if (isDeleteBtn) {
-  //       const removeId = e.target.dataset.id;
-  //       this.model.removeTodo(removeId).then(() => {
-  //         this.view.removeTodo(removeId);
-  //       });
-  //     }
-  //     if (isEditBtn) {
-  //       const editId = e.target.dataset.id;
-  //       const title = document.querySelector(
-  //         `.todo__title[data-id="${editId}"]`
-  //       ).textContent;
-  //       this.model.editTodo(editId, new Todo(title));
-  //     }
-  //   });
-  // }
 }

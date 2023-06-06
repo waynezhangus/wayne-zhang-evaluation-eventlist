@@ -1,6 +1,7 @@
 // Granular data type
 export class Event {
   constructor(eventName = "", startDate = new Date(), endDate = new Date()) {
+    this.id = "new";
     this.eventName = eventName;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -17,12 +18,13 @@ const API = (function () {
   };
 
   const postEvent = async (newEvent) => {
+    const { id, ...rest } = newEvent;
     const res = await fetch(`${API_URL}`, {
       method: "POST",
       headers: {
         "content-type": "application/json; charset=utf-8",
       },
-      body: JSON.stringify(newEvent),
+      body: JSON.stringify(rest),
     });
     return await res.json();
   };
@@ -77,7 +79,7 @@ export class EventModel {
   }
   async removeEvent(id) {
     const event = await API.deleteEvent(id);
-    this.events = this.events.filter((event) => event.id !== id);
+    this.events = this.getEvents().filter((event) => event.id !== id);
     return event;
   }
 }

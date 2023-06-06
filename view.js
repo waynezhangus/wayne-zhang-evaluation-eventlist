@@ -2,7 +2,7 @@ export class EventView {
   constructor() {
     this.table = document.querySelector(".events");
     this.addBtn = document.querySelector(".app__add-btn");
-    // this.input = document.querySelector("#form__input");
+    this.futureBtn = document.querySelector(".app__future-btn");
   }
 
   initEvents(events) {
@@ -19,7 +19,7 @@ export class EventView {
 
   removeEvent(id, e = null) {
     let eventElem;
-    if (e) eventElem = e.parentElement.parentElement;
+    if (e) eventElem = e.closest(".event");
     else eventElem = document.getElementById(`event-${id}`);
     eventElem.remove();
   }
@@ -27,7 +27,7 @@ export class EventView {
   updateEvent(event, e = null) {
     let eventElem;
     if (e) {
-      eventElem = e.parentElement.parentElement;
+      eventElem = e.closest(".event");
       eventElem.setAttribute("id", `event-${event.id}`);
       eventElem.querySelector(".event__name").setAttribute("data-id", event.id);
       eventElem
@@ -57,7 +57,7 @@ export class EventView {
 
   changeView(id, isEdit) {
     let eventElem;
-    if (id === "undefined") eventElem = this.table.lastChild;
+    if (id === "new") eventElem = this.table.lastChild;
     else eventElem = document.getElementById(`event-${id}`);
     const editBtn = eventElem.querySelector(`.app__edit-btn`);
     const deleteBtn = eventElem.querySelector(`.app__delete-btn`);
